@@ -306,6 +306,54 @@ export default function App() {
         `}</style>
         <div className="garden-grass" />
       </div>
+
+      <div
+        style={{
+          position: "fixed",
+          top: "clamp(1.8rem, 4.8vh, 2.6rem)",
+          left: "50%",
+          zIndex: 100000,
+          transform: "translateX(-50%)",
+          padding: "0.45rem 0.8rem",
+          borderRadius: "9999px",
+          background: "rgba(247,244,237,0.5)",
+          border: "1px solid rgba(33,27,22,0.1)",
+          boxShadow: "0 0.45rem 1rem rgba(33,27,22,0.1)",
+          backdropFilter: "blur(10px)",
+          color: "#211b16",
+          fontSize: "clamp(0.68rem, 2.5vw, 0.8rem)",
+          fontWeight: 800,
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
+          whiteSpace: "nowrap",
+          pointerEvents: "none",
+        }}
+      >
+        3D Polaroid by Edzel
+      </div>
+
+      <div
+        style={{
+          position: "fixed",
+          left: "50%",
+          bottom: "clamp(6.45rem, 16vh, 8.3rem)",
+          zIndex: 100000,
+          transform: "translateX(-50%)",
+          padding: "0.35rem 0.7rem",
+          borderRadius: "9999px",
+          background: "rgba(247,244,237,0.42)",
+          border: "1px solid rgba(33,27,22,0.09)",
+          boxShadow: "0 0.45rem 1rem rgba(33,27,22,0.09)",
+          backdropFilter: "blur(10px)",
+          color: "rgba(33,27,22,0.72)",
+          fontSize: "clamp(0.68rem, 2.6vw, 0.78rem)",
+          fontWeight: 700,
+          whiteSpace: "nowrap",
+          pointerEvents: "none",
+        }}
+      >
+        Swipe up/down to browse
+      </div>
       <div
         aria-hidden="true"
         style={{
