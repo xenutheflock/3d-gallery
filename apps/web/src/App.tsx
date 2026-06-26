@@ -29,6 +29,9 @@ import image26 from "../../../images/IMG_4814.jpeg";
 import image27 from "../../../images/IMG_5012.jpeg";
 import image28 from "../../../images/IMG_8643.jpeg";
 
+const ACCESS_PASSWORD = "mygallery";
+const ACCESS_STORAGE_KEY = "3d-gallery-unlocked";
+
 const sampleImages = [
   { src: image01, alt: "Gallery image 1" },
   { src: image02, alt: "Gallery image 2" },
@@ -66,6 +69,11 @@ export default function App() {
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [isUnlocked, setIsUnlocked] = useState(() => {
+    return sessionStorage.getItem(ACCESS_STORAGE_KEY) === "true";
+  });
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -127,6 +135,113 @@ export default function App() {
     audio.pause();
     setIsPlaying(false);
   };
+
+  const handleUnlock = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (password.trim() !== ACCESS_PASSWORD) {
+      setPasswordError("Wrong password. Please try again.");
+      return;
+    }
+
+    sessionStorage.setItem(ACCESS_STORAGE_KEY, "true");
+    setPasswordError("");
+    setIsUnlocked(true);
+  };
+
+  if (!isUnlocked) {
+    return (
+      <main
+        className="min-h-screen h-screen w-full overflow-hidden bg-black text-white"
+        style={{
+          width: "100vw",
+          height: "100vh",
+          margin: 0,
+          display: "grid",
+          placeItems: "center",
+          overflow: "hidden",
+          background:
+            "radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 34%), #030303",
+          color: "white",
+        }}
+      >
+        <form
+          onSubmit={handleUnlock}
+          style={{
+            width: "min(88vw, 22rem)",
+            display: "grid",
+            gap: "1rem",
+            textAlign: "center",
+          }}
+        >
+          <div>
+            <p
+              style={{
+                margin: 0,
+                fontSize: "0.72rem",
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.52)",
+              }}
+            >
+              Private gallery
+            </p>
+            <h1
+              style={{
+                margin: "0.45rem 0 0",
+                fontSize: "1.35rem",
+                fontWeight: 600,
+              }}
+            >
+              Enter password to continue
+            </h1>
+          </div>
+
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => {
+              setPassword(event.target.value);
+              setPasswordError("");
+            }}
+            placeholder="Password"
+            autoFocus
+            style={{
+              width: "100%",
+              border: "none",
+              borderRadius: "9999px",
+              background: "rgba(255,255,255,0.1)",
+              padding: "0.95rem 1.15rem",
+              color: "white",
+              outline: "none",
+              textAlign: "center",
+            }}
+          />
+
+          {passwordError ? (
+            <p style={{ margin: 0, fontSize: "0.8rem", color: "#fca5a5" }}>
+              {passwordError}
+            </p>
+          ) : null}
+
+          <button
+            type="submit"
+            style={{
+              border: "none",
+              borderRadius: "9999px",
+              background: "white",
+              padding: "0.95rem 1.15rem",
+              color: "black",
+              cursor: "pointer",
+              fontWeight: 700,
+            }}
+          >
+            Proceed
+          </button>
+        </form>
+      </main>
+    );
+  }
 
   return (
     <main
