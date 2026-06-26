@@ -288,17 +288,6 @@ export default function App() {
           <div style={{ textAlign: "center" }}>
             <p
               style={{
-                margin: 0,
-                fontSize: "0.68rem",
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.58)",
-              }}
-            >
-              I recommend playing this song while scrolling :&gt;
-            </p>
-            <p
-              style={{
                 margin: "0.2rem 0 0",
                 fontSize: "0.95rem",
                 fontWeight: 600,

@@ -206,6 +206,10 @@ function GalleryScene({
 	const [scrollVelocity, setScrollVelocity] = useState(0);
 	const [autoPlay, setAutoPlay] = useState(true);
 	const lastInteraction = useRef(Date.now());
+	const pointerState = useRef({
+		isDragging: false,
+		lastY: 0,
+	});
 
 	const normalizedImages = useMemo(
 		() =>
@@ -282,6 +286,36 @@ function GalleryScene({
 		[speed]
 	);
 
+	// Handle mobile touch / pointer drag input
+	const handlePointerDown = useCallback((event: PointerEvent) => {
+		pointerState.current = {
+			isDragging: true,
+			lastY: event.clientY,
+		};
+		setAutoPlay(false);
+		lastInteraction.current = Date.now();
+	}, []);
+
+	const handlePointerMove = useCallback(
+		(event: PointerEvent) => {
+			if (!pointerState.current.isDragging) return;
+
+			event.preventDefault();
+			const deltaY = pointerState.current.lastY - event.clientY;
+			pointerState.current.lastY = event.clientY;
+
+			setScrollVelocity((prev) => prev + deltaY * 0.045 * speed);
+			setAutoPlay(false);
+			lastInteraction.current = Date.now();
+		},
+		[speed]
+	);
+
+	const handlePointerUp = useCallback(() => {
+		pointerState.current.isDragging = false;
+		lastInteraction.current = Date.now();
+	}, []);
+
 	// Handle keyboard input
 	const handleKeyDown = useCallback(
 		(event: KeyboardEvent) => {
@@ -302,14 +336,24 @@ function GalleryScene({
 		const canvas = document.querySelector('canvas');
 		if (canvas) {
 			canvas.addEventListener('wheel', handleWheel, { passive: false });
+			canvas.addEventListener('pointerdown', handlePointerDown);
+			canvas.addEventListener('pointermove', handlePointerMove, { passive: false });
+			canvas.addEventListener('pointerup', handlePointerUp);
+			canvas.addEventListener('pointercancel', handlePointerUp);
+			canvas.addEventListener('pointerleave', handlePointerUp);
 			document.addEventListener('keydown', handleKeyDown);
 
 			return () => {
 				canvas.removeEventListener('wheel', handleWheel);
+				canvas.removeEventListener('pointerdown', handlePointerDown);
+				canvas.removeEventListener('pointermove', handlePointerMove);
+				canvas.removeEventListener('pointerup', handlePointerUp);
+				canvas.removeEventListener('pointercancel', handlePointerUp);
+				canvas.removeEventListener('pointerleave', handlePointerUp);
 				document.removeEventListener('keydown', handleKeyDown);
 			};
 		}
-	}, [handleWheel, handleKeyDown]);
+	}, [handleWheel, handlePointerDown, handlePointerMove, handlePointerUp, handleKeyDown]);
 
 	// Auto-play logic
 	useEffect(() => {
@@ -575,6 +619,8 @@ export default function InfiniteGallery({
 					width: '100vw',
 					height: '100vh',
 					background: '#030303',
+					touchAction: 'none',
+					cursor: 'grab',
 				}}
 			>
 				<color attach="background" args={["#030303"]} />
