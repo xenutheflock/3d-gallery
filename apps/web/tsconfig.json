@@ -6,7 +6,7 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": {
+    "paths": {ga
       "@/*": ["./src/*"],
       "@workspace/ui/*": ["../../packages/ui/src/*"]  
     }
