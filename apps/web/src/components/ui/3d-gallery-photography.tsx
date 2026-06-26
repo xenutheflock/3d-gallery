@@ -607,23 +607,22 @@ export default function InfiniteGallery({
 				position: 'fixed',
 				inset: 0,
 				overflow: 'hidden',
-				background: '#030303',
+				background: 'transparent',
 				...style,
 			}}
 		>
 			<Canvas
 				camera={{ position: [0, 0, 10], fov: 55 }}
-				gl={{ antialias: true, alpha: false }}
+				gl={{ antialias: true, alpha: true }}
 				style={{
 					display: 'block',
 					width: '100vw',
 					height: '100vh',
-					background: '#030303',
+					background: 'transparent',
 					touchAction: 'none',
 					cursor: 'grab',
 				}}
 			>
-				<color attach="background" args={["#030303"]} />
 				<GalleryScene
 					images={images}
 					speed={speed}

@@ -254,7 +254,8 @@ export default function App() {
         position: "fixed",
         inset: 0,
         overflow: "hidden",
-        background: "#030303",
+        background:
+          "radial-gradient(circle at 18% 12%, rgba(255,230,236,0.72), transparent 28%), radial-gradient(circle at 88% 18%, rgba(255,160,196,0.58), transparent 30%), radial-gradient(circle at 50% 74%, rgba(255,216,174,0.42), transparent 34%), linear-gradient(180deg, #f4b8cb 0%, #d98eaa 38%, #7fa86d 100%)",
         color: "white",
       }}
     >
@@ -268,87 +269,169 @@ export default function App() {
           height: "100vh",
           position: "fixed",
           inset: 0,
-          background: "#030303",
+          background:
+            "radial-gradient(circle at 18% 12%, rgba(255,230,236,0.72), transparent 28%), radial-gradient(circle at 88% 18%, rgba(255,160,196,0.58), transparent 30%), radial-gradient(circle at 50% 74%, rgba(255,216,174,0.42), transparent 34%), linear-gradient(180deg, #f4b8cb 0%, #d98eaa 38%, #7fa86d 100%)",
         }}
       />
+
+      <div
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 99997,
+          background:
+            "radial-gradient(circle at 50% 22%, rgba(255,255,255,0.24), transparent 24%), linear-gradient(180deg, rgba(255,255,255,0.18), transparent 30%), radial-gradient(circle at 50% 100%, rgba(44,106,48,0.58), transparent 46%)",
+          opacity: 1,
+          pointerEvents: "none",
+        }}
+      >
+        <style>{`
+          @keyframes gardenSway {
+            0%, 100% { transform: translateX(-50%) rotate(-2deg); }
+            50% { transform: translateX(-50%) rotate(2deg); }
+          }
+
+          .garden-grass {
+            position: absolute;
+            left: 50%;
+            bottom: -0.8rem;
+            width: 120vw;
+            height: clamp(4rem, 13vh, 7rem);
+            transform: translateX(-50%);
+            border-radius: 50% 50% 0 0;
+            background: repeating-linear-gradient(92deg, rgba(31, 99, 42, 0.84) 0 0.18rem, rgba(65, 145, 72, 0.78) 0.18rem 0.36rem, transparent 0.36rem 0.76rem), linear-gradient(180deg, rgba(73, 154, 77, 0.88), rgba(28, 79, 37, 0.96));
+            animation: gardenSway 4.5s ease-in-out infinite;
+          }
+        `}</style>
+        <div className="garden-grass" />
+      </div>
+      <div
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 99998,
+          borderStyle: "solid",
+          borderColor: "rgba(247,244,237,0.97)",
+          borderTopWidth: "clamp(0.9rem, 3.2vw, 1.4rem)",
+          borderRightWidth: "clamp(0.9rem, 3.2vw, 1.4rem)",
+          borderBottomWidth: "clamp(6.5rem, 18vh, 9rem)",
+          borderLeftWidth: "clamp(0.9rem, 3.2vw, 1.4rem)",
+          boxShadow:
+            "inset 0 0 0 1px rgba(0,0,0,0.22), inset 0 -0.4rem 1.2rem rgba(0,0,0,0.08), 0 1.2rem 3rem rgba(0,0,0,0.42)",
+          pointerEvents: "none",
+        }}
+      />
+
       <div
         className="fixed bottom-7 left-1/2 z-10 w-[min(88vw,20rem)] -translate-x-1/2 text-white"
         style={{
           position: "fixed",
           left: "50%",
-          bottom: "1.75rem",
-          zIndex: 99999,
-          width: "min(88vw, 20rem)",
+          bottom: "clamp(1rem, 3.3vh, 1.8rem)",
+          zIndex: 100000,
+          width: "min(86vw, 25rem)",
           transform: "translateX(-50%)",
-          color: "white",
+          color: "#211b16",
           pointerEvents: "auto",
         }}
       >
-        <div style={{ display: "grid", justifyItems: "center", gap: "0.65rem" }}>
-          <div style={{ textAlign: "center" }}>
-            <p
-              style={{
-                margin: "0.2rem 0 0",
-                fontSize: "0.95rem",
-                fontWeight: 600,
-                color: "white",
-              }}
-            >
-              Libu-libong Buwan
-            </p>
-            <p
-              style={{
-                margin: "0.05rem 0 0",
-                fontSize: "0.78rem",
-                color: "rgba(255,255,255,0.58)",
-              }}
-            >
-              Kyle Raphael
-            </p>
-          </div>
-
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "auto minmax(0, 1fr)",
+            alignItems: "center",
+            gap: "0.8rem",
+            padding: "0.72rem 0.88rem",
+            borderRadius: "1.25rem",
+            background: "rgba(255,255,255,0.42)",
+            border: "1px solid rgba(33,27,22,0.12)",
+            boxShadow:
+              "0 0.85rem 2rem rgba(33,27,22,0.14), inset 0 1px 0 rgba(255,255,255,0.65)",
+            backdropFilter: "blur(10px)",
+          }}
+        >
           <button
             type="button"
             onClick={togglePlayback}
             className="grid h-12 w-12 place-items-center rounded-full bg-white text-black transition hover:scale-105 hover:bg-white/90"
             style={{
               display: "grid",
-              width: "3rem",
-              height: "3rem",
+              width: "3.15rem",
+              height: "3.15rem",
               placeItems: "center",
               borderRadius: "9999px",
-              border: "none",
-              background: "white",
-              color: "black",
+              border: "1px solid rgba(33,27,22,0.1)",
+              background: "#211b16",
+              color: "#f7f4ed",
               cursor: "pointer",
+              boxShadow: "0 0.45rem 1rem rgba(33,27,22,0.22)",
             }}
             aria-label={isPlaying ? "Pause song" : "Play song"}
           >
-            <span className="text-base font-bold leading-none">
+            <span className="text-base font-bold leading-none" style={{ transform: isPlaying ? "none" : "translateX(1px)" }}>
               {isPlaying ? "❚❚" : "▶"}
             </span>
           </button>
 
-          <div style={{ width: "100%" }}>
+          <div style={{ minWidth: 0, width: "100%" }}>
             <div
               style={{
-                marginBottom: "0.3rem",
+                marginBottom: "0.46rem",
                 display: "flex",
+                alignItems: "baseline",
                 justifyContent: "space-between",
-                fontSize: "0.7rem",
-                color: "rgba(255,255,255,0.72)",
+                gap: "0.75rem",
               }}
             >
-              <span>{formatTime(currentTime)}</span>
-              <span>{formatTime(duration)}</span>
+              <div style={{ minWidth: 0 }}>
+                <p
+                  style={{
+                    margin: 0,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    fontSize: "0.92rem",
+                    fontWeight: 800,
+                    letterSpacing: "-0.02em",
+                    color: "#211b16",
+                  }}
+                >
+                  Libu-libong Buwan
+                </p>
+                <p
+                  style={{
+                    margin: "0.06rem 0 0",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    fontSize: "0.72rem",
+                    fontWeight: 600,
+                    color: "rgba(33,27,22,0.58)",
+                  }}
+                >
+                  Kyle Raphael
+                </p>
+              </div>
+              <span
+                style={{
+                  flexShrink: 0,
+                  fontSize: "0.68rem",
+                  fontWeight: 700,
+                  color: "rgba(33,27,22,0.54)",
+                }}
+              >
+                {formatTime(currentTime)} / {formatTime(duration)}
+              </span>
             </div>
             <div
-              className="h-1 overflow-hidden rounded-full bg-white/25"
               style={{
-                height: "0.22rem",
+                position: "relative",
+                height: "0.38rem",
                 overflow: "hidden",
                 borderRadius: "9999px",
-                background: "rgba(255,255,255,0.28)",
+                background: "rgba(33,27,22,0.14)",
               }}
             >
               <div
@@ -357,7 +440,7 @@ export default function App() {
                   width: `${progress}%`,
                   height: "100%",
                   borderRadius: "9999px",
-                  background: "white",
+                  background: "linear-gradient(90deg, #211b16, rgba(33,27,22,0.72))",
                   transition: "width 300ms ease",
                 }}
               />
